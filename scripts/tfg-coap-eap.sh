@@ -13,14 +13,18 @@ sudo apt-get install -y openjdk-7-jdk ant
 # Posible pre-requisite for installing the cross-compilser mspgcc-4.7.2
 sudo apt-get install texinfo
 
+# Setting the working folder in a variable
+TFG=$HOME/coap-eap-tfg
+
+
+
 # Downloading the customized code for the proof-of-concept
 git clone \
 https://github.com/dangarciacarrillo/tfg-coap-eap-proof-of-concept \
 $TFG
 
 
-# Setting the folder in a variable
-TFG=$HOME/coap-eap-tfg
+
 
 # Installing FreeRADIUS with PSK support
 cd $TFG
