@@ -1,5 +1,9 @@
-## Installing libraries and dependencies
+## UBUNTU 12.04 has lost support. 
+## There is a way of continue using it. 
+## Changing the repositories 
+## See setup ubuntu 12.04/precise-eol.sources.list
 
+## Installing libraries and dependencies
 # Preemtive update and upgrade
 sudo apt-get update && sudo apt-get -y upgrade 
 
@@ -12,6 +16,9 @@ sudo apt-get install -y openjdk-7-jdk ant
 
 # Posible pre-requisite for installing the cross-compilser mspgcc-4.7.2
 sudo apt-get install texinfo
+
+# Setting JAVA_HOME
+sudo echo "export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-i386/" >> $HOME/.bashrc
 
 # Setting the working folder in a variable
 TFG=$HOME/coap-eap-tfg
@@ -76,8 +83,10 @@ while [ 1 ]; do sudo ./tunslip6 -a 127.0.0.1 aaaa::ff:fe00:1/64; sleep 4; done
 
 ## Preparing the CoAP-EAP Controller
 # Compiling cantcoap to generate the library 
+cd $TFG
+tar xvf coap-eap-controller.tar.gz
 cd $TFG/coap-eap-controller/src/cantcoap-master
-make
+make clean && make
 
 # Compiling the CoAP-EAP Controller
 cd $TFG/coap-eap-controller
@@ -88,10 +97,22 @@ make
 
 # Launching the Controller
 cd src
-./openpaa
+./coapeapcontroller
 
+# Installing the mspgcc compiler
+# Alternatively there is the script in "scripts/install msp430 compiler"
+cd $TFG
+tar xvf mspgcc-4.7.2.tar.gz
+sudo cp -R mspgcc-4.7.2 /opt
+sudo echo "export PATH=$JAVA_HOME:/opt/mspgcc-4.7.2/bin:$PATH" >> $HOME/.bashrc
+source $HOME/.bashrc
+## Setting up COOJA
 
 # Launching the COOJA simulation
+cd $TFG
+tar xvf contiki-2.7.tar.gz
+cp -R contiki-2.7/apps/* $HOME/contiki-2.7/apps
+cp -R contiki-2.7/examples/* $HOME/contiki-2.7/examples
 cd $HOME/contiki-2.7/examples/coap-eap-ietf
 make TARGET=cooja coapeap-ietfv03-simulation-z1-1hops-1node-100ratio.csc
 
