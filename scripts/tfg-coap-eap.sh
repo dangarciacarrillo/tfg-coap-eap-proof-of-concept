@@ -3,6 +3,11 @@
 ## Changing the repositories 
 ## See setup ubuntu 12.04/precise-eol.sources.list
 
+## Possible issue with keyboard language... 
+## To change for example to spanish
+## sudo setxkbmap -layout 'es,es' -model pc105
+
+
 ## Installing libraries and dependencies
 # Preemtive update and upgrade
 sudo apt-get update && sudo apt-get -y upgrade 
