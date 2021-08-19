@@ -1,0 +1,4 @@
+EAP-PSK configuration 
+
+User: 		tfg-user-test
+Password: 	tfg-passwordtest
